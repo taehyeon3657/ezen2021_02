@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset=utf-8>
+        <meta name=description content="">
+        <meta name=viewport content="width=device-width, initial-scale=1">
+        <title>Jquery Comments Plugin</title>
+
+        <!-- Styles -->
+        <link rel="stylesheet" type="text/css" href="../plugin/comments/css/jquery-comments.css">
+        <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+
+        <!-- 나눔고딕 웹 폰트 적용 -->
+        <link rel="stylesheet" type="text/css" href="../assets/css/nanumfont.css" />
+
+        <!-- Data -->
+        <script type="text/javascript" src="../plugin/comments/data/comments-data.js"></script>
+
+        <!-- Libraries -->
+        <script src="../assets/js/jquery.min.js"></script>
+        <script type="text/javascript" src="../plugin/textcomplete/jquery.textcomplete.js"></script>
+        <script type="text/javascript" src="../plugin/comments/js/jquery-comments.js"></script>
+
+        <style type="text/css">
+            #comments-container {
+                padding: 20px;
+                margin: 0px;
+                font-size: 14px;
+                font-family: "Arial", Georgia, Serif;
+            }
+
+            .btns_padding {
+                padding-right: 15px;
+            }
+
+            .links {
+                display: inline-block;
+                float: right;
+            }
+
+            .links_padding {
+                padding-left: 5px;
+            }
+        </style>
+
+        <!-- Init jquery-comments -->
+        <script type="text/javascript">
+            $(function() {
+                var saveComment = function(data) {
+
+                    // Convert pings to human readable format
+                    $(Object.keys(data.pings)).each(function(index, userId) {
+                        var fullname = data.pings[userId];
+                        var pingText = '@' + fullname;
+                        data.content = data.content.replace(new RegExp('@' + userId, 'g'), pingText);
+                    });
+
+                    return data;
+                }
+                $('#comments-container').comments({
+                    profilePictureURL: 'https://viima-app.s3.amazonaws.com/media/public/defaults/user-icon.png',
+                    currentUserId: 1,
+                    roundProfilePictures: true,
+                    textareaRows: 1,
+                    enableAttachments: true,
+                    enableHashtags: true,
+                    enablePinging: true,
+                    scrollContainer: $(window),
+                    searchUsers: function(term, success, error) {
+                        setTimeout(function() {
+                            success(usersArray.filter(function(user) {
+                                var containsSearchTerm = user.fullname.toLowerCase().indexOf(term.toLowerCase()) != -1;
+                                var isNotSelf = user.id != 1;
+                                return containsSearchTerm && isNotSelf;
+                            }));
+                        }, 500);
+                    },
+                    getComments: function(success, error) {
+                        setTimeout(function() {
+                            success(commentsArray);
+                        }, 500);
+                    },
+                    postComment: function(data, success, error) {
+                        setTimeout(function() {
+                            success(saveComment(data));
+                        }, 500);
+                    },
+                    putComment: function(data, success, error) {
+                        setTimeout(function() {
+                            success(saveComment(data));
+                        }, 500);
+                    },
+                    deleteComment: function(data, success, error) {
+                        setTimeout(function() {
+                            success();
+                        }, 500);
+                    },
+                    upvoteComment: function(data, success, error) {
+                        setTimeout(function() {
+                            success(data);
+                        }, 500);
+                    },
+                    validateAttachments: function(attachments, callback) {
+                        setTimeout(function() {
+                            callback(attachments);
+                        }, 500);
+                    },
+                });
+            });
+        </script>
+
+    </head>
+    <body>
+        <h1>커뮤니티</h1>
+        <p>직장내 고민을 서로에게 털어놓고 도움받는 직장생활 노하우</p>
+        <br />
+
+        <div class="input-group">
+            <span class="btns_padding"><button type="button" class="btn btn-warning">목록</button></span>
+            <span class="btns_padding"><button type="button" class="btn btn-info">이전글</button></span>
+            <span class="btns_padding"><button type="button" class="btn btn-success">다음글</button></span>
+            <span class="links"><a href="#">수정</a></span>
+            <span class="links links_padding"><a href="#">삭제</a></span>
+        </div>
+
+        <hr />
+        <div id="comments-container"></div>
+        <script src="../assets/js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+
+<html lang="en" dir="ltr"></html>
+<head>
+    <title>CKEditor 5 ClassicEditor build</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="../plugin/editor/css/styles.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css" />
+
+    <!-- 나눔고딕 웹 폰트 적용 -->
+    <link rel="stylesheet" type="text/css" href="../assets/css/nanumfont.css" />
+
+        <!-- 반응형 웹을 지원하지 않을 경우 -->
+        <!-- <link rel="stylesheet" href="assets/css/non-responsive.css" /> -->
+
+        <!-- IE8 이하 버전 지원 -->
+        <!--[if lt IE 9]>
+        <script type="text/javascript" src="assets/js/html5shiv.js"></script>
+        <script type="text/javascript" src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- IE10 반응형 웹 버그 보완 -->
+        <!--[if gt IE 9]>
+        <link rel="stylesheet" type="text/css" href="assets/css/ie10.css" />
+        <script type="text/javascript" src="assets/js/ie10.js"></script>
+        <![endif]-->
+    <style type="text/css">
+       .title {
+            text-align: center;
+       }
+
+    </style>
+</head>
+<body>
+    <h1 class="title">커뮤니티 글쓰기</h1>
+    <br />
+    <form>
+        <div class="input-group input-group-lg">
+            <input type="text" class="form-control editor_title" name="editor_title" placeholder="제목을 입력하세요.">
+            <span class="input-group-addon">
+                <select class="editor_cate" name="mal">
+                <option value="">말머리</option>
+                <option value="학생">도움</option>
+                <option value="회사원">꿀팁</option>
+                <option value="기타">넋두리</option>
+            </select>
+            </span>
+        </div>
+        <hr />
+        <div id="editor" data-editor="ClassicEditor" data-collaboration="false">
+        <main>
+            <div class="centered">
+                <div class="row row-editor">
+                    <div class="editor">
+                        <h2>내용을 입력하세요.</h2>
+                            <figure class="image image-style-side">
+                            </figure>
+                    </div>
+                </div>
+            </div>
+        </main>
+        </div>
+    <br />
+    <button type="button" class="btn btn-warning">취소</button>
+    <button type="submit" class="btn btn-info">등록</button>
+    </form>
+    <script src="../plugin/editor/js/ckeditor.js"></script>
+    <script>ClassicEditor
+            .create( document.querySelector( '.editor' ), {
+
+                toolbar: {
+                    items: [
+                        'bold',
+                        'italic',
+                        'underline',
+                        '|',
+                        'undo',
+                        'redo',
+                        '|',
+                        'alignment',
+                        'fontFamily',
+                        'fontSize',
+                        'fontBackgroundColor',
+                        'fontColor'
+                    ]
+                },
+                language: 'ko',
+                licenseKey: '',
+
+
+            } )
+            .then( editor => {
+                window.editor = editor;
+
+            } )
+            .catch( error => {
+                console.error( 'Oops, something went wrong!' );
+                console.error( 'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:' );
+                console.warn( 'Build id: 9fprvbpqgxc4-w2utu46f57x7' );
+                console.error( error );
+            } );
+    </script>
+    <script src="../assets/js/jquery.min.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+</div>
+</body>
